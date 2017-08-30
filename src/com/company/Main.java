@@ -1,6 +1,5 @@
 package com.company;
 
-import jdk.internal.org.xml.sax.XMLReader;
 
 import java.util.Scanner;
 
@@ -11,6 +10,12 @@ public class Main {
         boolean exit = false;
         Scanner scanner = new Scanner(System.in);
         Controller controller = new Controller();
+        try{
+            DBAccess.createTables();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
         while (!exit){
             System.out.println("1. View cocktails\n" +
@@ -31,6 +36,11 @@ public class Main {
                 case 4:
                     controller.createIngredient();
                     break;
+                case 5:
+                    exit = true;
+                    break;
+                case 6:
+                    controller.enterEntryToDB();
             }
         }
 

@@ -3,6 +3,7 @@ package com.company;
 import Objects.Cocktail;
 import Objects.Ingredients;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -127,6 +128,22 @@ public class Controller {
     private String scannerString(){
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
+    }
+
+    public void enterEntryToDB(){
+        System.out.println("Enter cocktail");
+        String cocktailName = scannerString();
+        try{
+            DBAccess.populateCoctailsNamesTable(cocktailName);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        try{
+            DBAccess.linkDBEntriesCocktailsToIngredients(cocktailName);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
 
 }
