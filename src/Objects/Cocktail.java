@@ -38,4 +38,8 @@ public class Cocktail {
                 '}';
     }
 
+    public List<Ingredients> returnIngredients (){
+        return ingridients;
+    }
+
 }

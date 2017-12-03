@@ -3,7 +3,7 @@ package com.company;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Main{
+public class  Main{
 
     public static void main(String[] args) {
 
@@ -12,7 +12,7 @@ public class Main{
         Controller controller = new Controller();
         //controller.initializeDBandLists();
         try{
-            DBConnection.createTables();
+            FirstProgramInitialize.createTables();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -23,7 +23,8 @@ public class Main{
                     "2. View used ingredients\n" +
                     "3. Add new cocktail\n" +
                     "4. Add new ingredient\n" +
-                    "5. Exit");
+                    "5. Exit\n" +
+                    "6. Test DB pull");
             int selection = scanner.nextInt();
             switch (selection){
                 case 1:
@@ -41,6 +42,13 @@ public class Main{
                 case 5:
                     exit = true;
                     break;
+                case 6:
+                    System.out.println("Running");
+                    try{
+                        FirstProgramInitialize.returnDBIngredients();
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
             }
         }
 
@@ -49,6 +57,5 @@ public class Main{
     private static String returnString(){
         return new Scanner(System.in).nextLine();
     }
-
 
 }

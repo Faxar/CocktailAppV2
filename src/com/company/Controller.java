@@ -17,9 +17,10 @@ public class Controller {
     private List<Ingredients> ingredientsList;
     private List<Cocktail> coctailList;
 
-    Controller(){
+    Controller() {
         ingredientsList = new ArrayList<>();
         coctailList = new ArrayList<>();
+
     }
 
 //    public void initializeDBandLists(){
@@ -27,38 +28,38 @@ public class Controller {
 //        populateIngredientList();
 //    }
 
-    public List returnIngredients(){
+    public List returnIngredients() {
         return ingredientsList;
     }
 
-    public void announceIngredientList(){
-        if(ingredientsList.size() <= 0){
+    void announceIngredientList() {
+        if (ingredientsList.size() <= 0) {
             System.out.println("No ingredients in the list.");
         } else {
-            for(Ingredients ingr : ingredientsList){
+            for (Ingredients ingr : ingredientsList) {
                 System.out.println(ingr.returnIngredientName());
             }
         }
     }
 
-    public void announceCocktailList(){
-        if(coctailList.size() <= 0){
+    void announceCocktailList() {
+        if (coctailList.size() <= 0) {
             System.out.println("No cocktails in the list.");
         } else {
-            for(Cocktail coctail: coctailList){
+            for (Cocktail coctail : coctailList) {
                 System.out.println(coctail.returnCoctailName());
             }
         }
     }
 
-    public void createCocktail(){
+    void createCocktail() {
         System.out.println("Please type name of the cocktail");
         checkIfCocktailAlreadyInTheList(scannerString());
     }
 
-    private void checkIfCocktailAlreadyInTheList (String cocktailName){
+    private void checkIfCocktailAlreadyInTheList(String cocktailName) {
         for (Cocktail cocktailInTheList : coctailList) {
-            if((cocktailInTheList.returnCoctailName().equals(cocktailName))){
+            if ((cocktailInTheList.returnCoctailName().equals(cocktailName))) {
                 System.out.println("This cocktail already exist in the list");
                 return;
             }
@@ -66,22 +67,22 @@ public class Controller {
         createCocktailObject(cocktailName);
     }
 
-    private void createCocktailObject(String cocktailName){
+    private void createCocktailObject(String cocktailName) {
         Scanner scanner = new Scanner(System.in);
         boolean onlyIngredient = true;
         ArrayList<Ingredients> cocktailIngredients = new ArrayList<>();
-        do{
+        do {
             System.out.println("Please specify ingredients");
             cocktailIngredients.add(createIngredientObject());
             System.out.println("Add more ingredients?\n" +
                     "1.Yes.\n" +
                     "2.No.");
             int choice = scanner.nextInt();
-            switch (choice){
+            switch (choice) {
                 case 2:
                     onlyIngredient = false;
             }
-        }while(onlyIngredient);
+        } while (onlyIngredient);
         Cocktail cocktail = new Cocktail(cocktailName, cocktailIngredients);
         addCocktailToOverallList(cocktail);
         pushNewlyCreatedCocktailToDB(cocktail);
@@ -95,18 +96,18 @@ public class Controller {
         System.out.println();
     }
 
-    private boolean checkIfIngredientAlreadyInTheList (String ingredientName){
-        for (Ingredients ingredientInTheList: ingredientsList) {
-            if (ingredientInTheList.returnIngredientName().equals(ingredientName)){
+    private boolean checkIfIngredientAlreadyInTheList(String ingredientName) {
+        for (Ingredients ingredientInTheList : ingredientsList) {
+            if (ingredientInTheList.returnIngredientName().equals(ingredientName)) {
                 return true;
             }
         }
         return false;
     }
 
-    private Ingredients returnIngredientFromAlreadyCreatedIngredients(String i_name){
-        for (Ingredients ingredientsThatAlreadyInTheList: ingredientsList) {
-            if(ingredientsThatAlreadyInTheList.returnIngredientName().equals(i_name)){
+    private Ingredients returnIngredientFromAlreadyCreatedIngredients(String i_name) {
+        for (Ingredients ingredientsThatAlreadyInTheList : ingredientsList) {
+            if (ingredientsThatAlreadyInTheList.returnIngredientName().equals(i_name)) {
                 return ingredientsThatAlreadyInTheList;
             }
         }
@@ -114,14 +115,15 @@ public class Controller {
     }
 
 
-    public void createIngredient(){
+    void createIngredient() {
         System.out.println("Please specify ingredient name that you like to add.");
+        pushNewlyCreatedIngredientToDB(createIngredientObject());
         //Ingredients createdSingleIngredient = createIngredientObject();
     }
 
-    private Ingredients createIngredientObject(){
+    private Ingredients createIngredientObject() {
         String ingredientName = scannerString();
-        if(checkIfIngredientAlreadyInTheList(ingredientName)){
+        if (checkIfIngredientAlreadyInTheList(ingredientName)) {
             return returnIngredientFromAlreadyCreatedIngredients(ingredientName);
         } else {
             Ingredients createdIngredient = new Ingredients(ingredientName);
@@ -131,31 +133,31 @@ public class Controller {
         }
     }
 
-    private void addIngredientsToOverallList(Ingredients addThis){
+    private void addIngredientsToOverallList(Ingredients addThis) {
         ingredientsList.add(addThis);
     }
 
-    private void addCocktailToOverallList(Cocktail addThis){
+    private void addCocktailToOverallList(Cocktail addThis) {
         coctailList.add(addThis);
     }
 
-    private String scannerString(){
+    private String scannerString() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
-    private void populateCoctailList(){
+    private void populateCoctailList() {
     }
 
 //    private void populateIngredientList(){
 //        ingredientsList = removeIngredientDuplicates(DBConnection.returnDBIngredients());
 //    }
 
-    private ArrayList<Ingredients> removeIngredientDuplicates(ArrayList<Ingredients> inreList){
+    private ArrayList<Ingredients> removeIngredientDuplicates(ArrayList<Ingredients> inreList) {
         ArrayList<Ingredients> returnedList = new ArrayList<>();
-        for (Ingredients ingre: inreList) {
-            for(int i=0;i<returnedList.size();i++){
-                if(ingre.returnIngredientName().equals(returnedList.get(i).returnIngredientName())){
+        for (Ingredients ingre : inreList) {
+            for (int i = 0; i < returnedList.size(); i++) {
+                if (ingre.returnIngredientName().equals(returnedList.get(i).returnIngredientName())) {
                     break;
                 } else {
                     returnedList.add(ingre);
@@ -165,15 +167,32 @@ public class Controller {
         return returnedList;
     }
 
-    private void pushNewlyCreatedCocktailToDB(Cocktail cocktail){
-        try{
-            DBConnection.populateCoctailsNamesTable(cocktail.returnCoctailName());
-            for (Ingredients ingre: cocktail.returnIngredients()) {
-                DBConnection.creatingIngredient(ingre.returnIngredientName(), cocktail.returnCoctailName());
+    private void pushNewlyCreatedCocktailToDB(Cocktail cocktail) {
+        try {
+            DBIO.populateCoctailsNamesTable(cocktail.returnCoctailName());
+            for (Ingredients ingre : cocktail.returnIngredients()) {
+                DBIO.creatingIngredient(ingre.returnIngredientName(), cocktail.returnCoctailName());
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    private void pushNewlyCreatedIngredientToDB(Ingredients ingre) {
+        try {
+            DBIO.populateIngredientsNamesTable(ingre.returnIngredientName());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initializationStart() {
+        try {
+            ingredientsList = FirstProgramInitialize.returnDBIngredients();
+            //coctailList = DBConnection.returnCocktailList();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

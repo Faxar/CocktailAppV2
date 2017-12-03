@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -16,7 +16,7 @@
       <scope value="GLOBAL" />
       <destination value="FILE" />
       <format value="EXCEL" />
-      <charset value="windows-1251" />
+      <charset value="windows-1252" />
     </export-instructions>
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -25,13 +25,26 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="e85fb2c2-bebd-4fb6-835d-eda4db19dd62">
-        <schema name="main" object-types="column, constraint, index, table, dataset trigger, view" />
+        <schema name="main" object-types="column, table, view" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="e85fb2c2-bebd-4fb6-835d-eda4db19dd62">
-      <console name="Connection" type="STANDARD"><![CDATA[select * from COCKTAIL_NAME;]]></console>
+      <console name="Connection" type="STANDARD"><![CDATA[select * from COCKTAIL_NAME;
+
+drop table COCKTAIL_NAME;
+
+delete from COCKTAIL_INGREDIENTS where id = 3;
+
+select * from COCKTAIL_INGREDIENTS;
+
+select * from sqlite_sequence;
+
+select ci.NAME from COCKTAIL_INGREDIENTS ci
+join COCKTAIL_RECEPIES cr on cr.I_ID = ci.ID
+join COCKTAIL_NAME cn on cn.ID = cr.C_ID
+where cn.name = 'Gin Tonic';]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
@@ -72,7 +85,7 @@
           <port value="" />
           <database value="" />
           <files>
-            <file path="C:\Users\Alazerus\Desktop\CocktailApp\test.db" schema="main" />
+            <file path="C:\Users\Kristina\IdeaProjects\CocktailApp\test.db" schema="main" />
           </files>
           <os-authentication value="false" />
           <empty-password value="false" />
@@ -96,7 +109,7 @@
           <charset value="UTF-8" />
           <ddl-file-binding value="true" />
           <database-logging value="false" />
-          <connect-automatically value="true" />
+          <connect-automatically value="false" />
           <restore-workspace value="true" />
           <restore-workspace-deep value="true" />
           <environment-type value="default" />
@@ -221,6 +234,7 @@
     <dataset-grid-settings>
       <general>
         <enable-zooming value="true" />
+        <enable-column-tooltip value="true" />
       </general>
       <sorting>
         <nulls-first value="true" />
@@ -268,7 +282,6 @@
           <content-type name="SQL" enabled="true" />
           <content-type name="PL/SQL" enabled="true" />
           <content-type name="Groovy" enabled="true" />
-          <content-type name="AIDL" enabled="true" />
           <content-type name="YAML" enabled="true" />
           <content-type name="Manifest" enabled="true" />
         </content-types>
@@ -450,6 +463,7 @@
         <debug-execution-timeout value="600" />
         <focus-result value="false" />
         <prompt-execution value="false" />
+        <target-connection value="MAIN" />
       </statement-execution>
       <script-execution>
         <command-line-interfaces />
